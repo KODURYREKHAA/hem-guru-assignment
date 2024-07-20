@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: process.env.REACT_APP_URL || "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["x-auth-token"],
     credentials: true,
@@ -20,7 +20,14 @@ const io = require("socket.io")(server, {
 require("dotenv").config();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.REACT_APP_URL || "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["x-auth-token"],
+    credentials: true,
+  })
+);
 
 // MongoDB connection
 mongoose
