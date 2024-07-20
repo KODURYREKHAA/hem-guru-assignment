@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import Cookies from "js-cookie";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://aptitude-guru-hem-assignment.onrender.com");
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -42,13 +42,16 @@ const App = () => {
 
   const validateToken = async (token) => {
     try {
-      const response = await fetch("http://localhost:5000/api/validate-token", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-        },
-      });
+      const response = await fetch(
+        "https://aptitude-guru-hem-assignment.onrender.com/api/validate-token",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        }
+      );
       if (response.ok) {
         setIsAuthenticated(true);
       } else {
@@ -62,24 +65,30 @@ const App = () => {
 
   const fetchMessages = async () => {
     const token = Cookies.get("token");
-    const response = await fetch("http://localhost:5000/api/messages", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": token,
-      },
-    });
+    const response = await fetch(
+      "https://aptitude-guru-hem-assignment.onrender.com/api/messages",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+      }
+    );
     const data = await response.json();
     setMessages(data);
   };
 
   const register = async () => {
     setRegisterError(""); // Clear previous errors
-    const response = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+    const response = await fetch(
+      "https://aptitude-guru-hem-assignment.onrender.com/api/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       console.log(data.display_msg);
@@ -95,11 +104,14 @@ const App = () => {
 
   const login = async () => {
     setLoginError(""); // Clear previous errors
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+    const response = await fetch(
+      "https://aptitude-guru-hem-assignment.onrender.com/api/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      }
+    );
     if (response.ok) {
       const token = await response.text();
       Cookies.set("token", token);
@@ -116,14 +128,17 @@ const App = () => {
 
   const sendMessage = async () => {
     const token = Cookies.get("token");
-    await fetch("http://localhost:5000/api/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": token,
-      },
-      body: JSON.stringify({ receiver: "anotherUser", content: message }),
-    });
+    await fetch(
+      "https://aptitude-guru-hem-assignment.onrender.com/api/messages",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({ receiver: "anotherUser", content: message }),
+      }
+    );
     setMessage("");
   };
 
