@@ -95,13 +95,41 @@ app.post("/api/login", async (req, res) => {
   res.status(200).send(token);
 });
 
-// Send Message Route
+// Send Message Route with Sample Responses and Query Handling
 app.post("/api/messages", auth, async (req, res) => {
   const { receiver, content } = req.body;
   const message = new Message({ sender: req.user.username, receiver, content });
   await message.save();
 
   io.emit("message", message);
+
+  // Sample response logic and query handling
+  let responseContent = null;
+  if (content.toLowerCase() === "hi") {
+    responseContent = `Hi, welcome to Aravind's chatbot!\nChoose a query:\n1. Option a\n2. Option b\n3. Option c\n4. Option d\n5. Raise your own query`;
+  } else if (content.toLowerCase() === "raise your own query") {
+    responseContent = "Please enter your query:";
+  }
+
+  if (responseContent) {
+    const botMessage = new Message({
+      sender: "ChatBot",
+      receiver: req.user.username,
+      content: responseContent,
+    });
+    await botMessage.save();
+    io.emit("message", botMessage);
+  } else if (content.startsWith("QUERY: ")) {
+    const queryNumber = Math.floor(Math.random() * 1000000);
+    const botMessage = new Message({
+      sender: "ChatBot",
+      receiver: req.user.username,
+      content: `Thank you for your query. Your ticket number is ${queryNumber}. We will get back to you soon.`,
+    });
+    await botMessage.save();
+    io.emit("message", botMessage);
+  }
+
   res.send(message);
 });
 

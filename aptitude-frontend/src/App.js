@@ -13,6 +13,8 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [loginError, setLoginError] = useState("");
   const [registerError, setRegisterError] = useState("");
+  const [isQueryBoxOpen, setIsQueryBoxOpen] = useState(false);
+  const [userQuery, setUserQuery] = useState("");
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -25,6 +27,10 @@ const App = () => {
     const handleMessage = (message) => {
       console.log("Received message:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
+
+      if (message.content.toLowerCase().includes("raise your own query")) {
+        setIsQueryBoxOpen(true);
+      }
     };
 
     socket.on("message", handleMessage);
@@ -142,6 +148,26 @@ const App = () => {
     setMessage("");
   };
 
+  const sendUserQuery = async () => {
+    const token = Cookies.get("token");
+    await fetch(
+      "https://aptitude-guru-hem-assignment.onrender.com/api/messages",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          receiver: "anotherUser",
+          content: `QUERY: ${userQuery}`,
+        }),
+      }
+    );
+    setUserQuery("");
+    setIsQueryBoxOpen(false);
+  };
+
   const logout = () => {
     Cookies.remove("token");
     setIsAuthenticated(false);
@@ -178,7 +204,12 @@ const App = () => {
           </button>
           <div className="message-list">
             {messages.map((msg, index) => (
-              <div className="message" key={index}>
+              <div
+                className={`message ${
+                  msg.sender === "ChatBot" ? "bot-message" : ""
+                }`}
+                key={index}
+              >
                 <strong>{msg.sender}: </strong>
                 {msg.content}
               </div>
@@ -193,6 +224,19 @@ const App = () => {
             />
             <button onClick={sendMessage}>Send</button>
           </div>
+          {isQueryBoxOpen && (
+            <div className="query-box">
+              <textarea
+                placeholder="Enter your query"
+                value={userQuery}
+                onChange={(e) => setUserQuery(e.target.value)}
+              />
+              <div className="query-box-buttons">
+                <button onClick={() => setIsQueryBoxOpen(false)}>Cancel</button>
+                <button onClick={sendUserQuery}>Submit</button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

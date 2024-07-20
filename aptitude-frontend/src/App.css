@@ -83,3 +83,166 @@ button:hover {
 .send-message-container button {
   margin-left: 10px;
 }
+
+/* App.css */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.auth-container input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-between;
+}
+
+.logout-button {
+  align-self: flex-end;
+  margin-bottom: 10px;
+}
+
+.message-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  background: #f1f1f1;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.bot-message {
+  background: #d1ffd1;
+}
+
+.send-message-container {
+  display: flex;
+  gap: 10px;
+}
+
+.send-message-container input {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.send-message-container button {
+  padding: 10px;
+}
+
+/* App.css */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.auth-container input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-between;
+}
+
+.logout-button {
+  align-self: flex-end;
+  margin-bottom: 10px;
+}
+
+.message-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  background: #f1f1f1;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.bot-message {
+  background: #d1ffd1;
+}
+
+.send-message-container {
+  display: flex;
+  gap: 10px;
+}
+
+.send-message-container input {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.send-message-container button {
+  padding: 10px;
+}
+
+.query-box {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.query-box textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.query-box-buttons {
+  display: flex;
+  justify-content: space-between;
+}
