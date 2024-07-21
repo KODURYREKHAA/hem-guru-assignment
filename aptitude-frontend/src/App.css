@@ -15,6 +15,13 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.auth-container:hover,
+.chat-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 input {
@@ -23,6 +30,12 @@ input {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 button {
@@ -35,15 +48,18 @@ button {
   color: white;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 .error-message {
   color: red;
   margin: 10px 0;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .logout-button {
@@ -55,10 +71,12 @@ button:hover {
   cursor: pointer;
   font-size: 16px;
   border-radius: 4px;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .logout-button:hover {
   background-color: #c82333;
+  transform: translateY(-2px);
 }
 
 .message-list {
@@ -69,6 +87,7 @@ button:hover {
 .message {
   padding: 10px;
   border-bottom: 1px solid #eee;
+  animation: fadeInUp 0.5s ease-in-out;
 }
 
 .send-message-container {
@@ -84,7 +103,6 @@ button:hover {
   margin-left: 10px;
 }
 
-/* App.css */
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -102,81 +120,6 @@ button:hover {
 .auth-container button {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
-  justify-content: space-between;
-}
-
-.logout-button {
-  align-self: flex-end;
-  margin-bottom: 10px;
-}
-
-.message-list {
-  flex-grow: 1;
-  overflow-y: auto;
-  margin-bottom: 10px;
-}
-
-.message {
-  background: #f1f1f1;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: left;
-}
-
-.bot-message {
-  background: #d1ffd1;
-}
-
-.send-message-container {
-  display: flex;
-  gap: 10px;
-}
-
-.send-message-container input {
-  flex-grow: 1;
-  padding: 10px;
-}
-
-.send-message-container button {
-  padding: 10px;
-}
-
-/* App.css */
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-}
-
-.auth-container input {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-.auth-container button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.error-message {
-  color: red;
   margin-top: 10px;
 }
 
@@ -234,6 +177,7 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 80%;
+  animation: slideUp 0.5s ease-in-out;
 }
 
 .query-box textarea {
@@ -245,4 +189,36 @@ button:hover {
 .query-box-buttons {
   display: flex;
   justify-content: space-between;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

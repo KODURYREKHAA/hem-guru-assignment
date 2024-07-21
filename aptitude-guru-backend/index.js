@@ -107,7 +107,15 @@ app.post("/api/messages", auth, async (req, res) => {
   let responseContent = null;
   if (content.toLowerCase() === "hi") {
     responseContent = `Hi, welcome to Aravind's chatbot!\nChoose a query:\n1. Option a\n2. Option b\n3. Option c\n4. Option d\n5. Raise your own query`;
-  } else if (content.toLowerCase() === "raise your own query") {
+  } else if (content === "1") {
+    responseContent = "Thanks for selecting option a.";
+  } else if (content === "2") {
+    responseContent = "Thanks for selecting option b.";
+  } else if (content === "3") {
+    responseContent = "Thanks for selecting option c.";
+  } else if (content === "4") {
+    responseContent = "Thanks for selecting option d.";
+  } else if (content.toLowerCase() === "5") {
     responseContent = "Please enter your query:";
   }
 
