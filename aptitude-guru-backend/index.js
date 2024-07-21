@@ -115,8 +115,9 @@ app.post("/api/messages", auth, async (req, res) => {
     responseContent = "Thanks for selecting option c.";
   } else if (content === "4") {
     responseContent = "Thanks for selecting option d.";
-  } else if (content.toLowerCase() === "5") {
+  } else if (content === "5") {
     responseContent = "Please enter your query:";
+    io.emit("openQueryBox");
   }
 
   if (responseContent) {
@@ -157,6 +158,7 @@ app.get("/api/validate-token", auth, (req, res) => {
 // Socket.io connection
 io.on("connection", (socket) => {
   console.log("a user connected");
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });

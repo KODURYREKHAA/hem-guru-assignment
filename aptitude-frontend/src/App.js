@@ -15,6 +15,7 @@ const App = () => {
   const [registerError, setRegisterError] = useState("");
   const [isQueryBoxOpen, setIsQueryBoxOpen] = useState(false);
   const [userQuery, setUserQuery] = useState("");
+  const [confirmChoice, setConfirmChoice] = useState(null);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -33,10 +34,22 @@ const App = () => {
       }
     };
 
+    const handleOpenQueryBox = () => {
+      setIsQueryBoxOpen(true);
+    };
+
+    const handleConfirmChoice = (choice) => {
+      setConfirmChoice(choice);
+    };
+
     socket.on("message", handleMessage);
+    socket.on("openQueryBox", handleOpenQueryBox);
+    socket.on("confirmChoice", handleConfirmChoice);
 
     return () => {
       socket.off("message", handleMessage);
+      socket.off("openQueryBox", handleOpenQueryBox);
+      socket.off("confirmChoice", handleConfirmChoice);
     };
   }, [isAuthenticated]);
 
@@ -174,6 +187,11 @@ const App = () => {
     setMessages([]);
   };
 
+  const handleChoiceConfirmation = () => {
+    alert(`You selected option ${confirmChoice}.`);
+    setConfirmChoice(null);
+  };
+
   return (
     <div className="container">
       {!isAuthenticated ? (
@@ -235,6 +253,12 @@ const App = () => {
                 <button onClick={() => setIsQueryBoxOpen(false)}>Cancel</button>
                 <button onClick={sendUserQuery}>Submit</button>
               </div>
+            </div>
+          )}
+          {confirmChoice !== null && (
+            <div className="confirm-box">
+              <p>You selected option {confirmChoice}. Are you sure?</p>
+              <button onClick={handleChoiceConfirmation}>OK</button>
             </div>
           )}
         </div>
